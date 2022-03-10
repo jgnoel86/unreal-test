@@ -1,8 +1,8 @@
 #pragma once
 
-#include "FDMBase.h"
+#include "DMBase.h"
 
-#include "FDMCollection.generated.h"
+#include "DMCollection.generated.h"
 
 
 USTRUCT(BlueprintType)

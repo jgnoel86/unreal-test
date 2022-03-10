@@ -1,10 +1,10 @@
 #pragma once
 
-#include "FDMBase.h"
-#include "FDMCollection.h"
-#include "FDMItem.h"
+#include "DMBase.h"
+#include "DMCollection.h"
+#include "DMItem.h"
 
-#include "FDMApp.generated.h"
+#include "DMApp.generated.h"
 
 
 USTRUCT(BlueprintType)
@@ -19,5 +19,5 @@ struct FDMApp : public FDMBase
 	TArray<FDMItem> itemList;
 
 	UPROPERTY()
-	TArray<FString> orderedList;
+	FString startingCollection;
 };

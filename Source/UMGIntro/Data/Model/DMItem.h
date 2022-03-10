@@ -1,9 +1,8 @@
 #pragma once
 
-#include "FDMBase.h"
+#include "DMBase.h"
 
-#include "FDMItem.generated.h"
-
+#include "DMItem.generated.h"
 
 USTRUCT(BlueprintType)
 struct FDMItem : public FDMBase

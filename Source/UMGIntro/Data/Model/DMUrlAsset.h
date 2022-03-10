@@ -1,6 +1,6 @@
 #pragma once
 
-#include "FDMUrlAsset.generated.h"
+#include "DMUrlAsset.generated.h"
 
 USTRUCT(BlueprintType)
 struct FDMUrlAsset

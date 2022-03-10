@@ -1,15 +1,14 @@
 #pragma once
 
-#include "FDMUrlAsset.h"
+#include "DMUrlAsset.h"
 
-#include "FDMBase.generated.h"
-
+#include "DMBase.generated.h"
 
 USTRUCT(BlueprintType)
 struct FDMBase
 {
 	GENERATED_BODY()
-
+	
 	UPROPERTY()
 	FString id;
 
