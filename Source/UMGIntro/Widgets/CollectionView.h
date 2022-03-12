@@ -3,9 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AppDataStore.h"
+#include "../Data/AppDataStore.h"
 #include "Blueprint/UserWidget.h"
-#include "Data/Model/DMCollection.h"
+#include "../Data/Model/DMCollection.h"
 #include "CollectionView.generated.h"
 
 struct FDMCollection;
@@ -19,4 +19,7 @@ class UMGINTRO_API UCollectionView : public UUserWidget
 public:
     UFUNCTION(BlueprintCallable)
     void SetupAndDisplayView(UPARAM(ref) const FDMCollection& Collection, const UAppDataStore* DataStore);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void SetupElement(const FDMBase& BaseItem);
 };

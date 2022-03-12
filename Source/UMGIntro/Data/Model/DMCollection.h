@@ -12,4 +12,8 @@ struct FDMCollection : public FDMBase
 
 	UPROPERTY()
 	TArray<FString> itemIds;
+	
+	static bool IsValid(const FDMCollection& Collection);
+
+	static const FDMCollection SInvalidCollection;
 };

@@ -3,6 +3,8 @@
 
 #include "AppDataStore.h"
 #include "JsonObjectConverter.h"
+#include "Model/DMItem.h"
+#include "Model/DMCollection.h"
 
 void UAppDataStore::SetupDataFromResponseString(FString response)
 {
@@ -29,18 +31,30 @@ void UAppDataStore::SetupDataFromResponseString(FString response)
     }
 }
 
+const FDMBase* UAppDataStore::GetBasePointer(const FString& itemId) const
+{
+    return mBaseItems[itemId];
+}
+
+
 const FDMCollection& UAppDataStore::GetStartingCollection() const
 {
-    return GetCastedBase<FDMCollection>(mAppData.startingCollection);
+	return GetCollection(mAppData.startingCollection);
 }
 
 const FDMCollection& UAppDataStore::GetCollection(const FString& collectionId) const
 {
-    return GetCastedBase<FDMCollection>(collectionId);
+	FDMBase* basePtr = mBaseItems[collectionId];
+    if(!basePtr)
+        return FDMCollection::SInvalidCollection;
+    return *static_cast<FDMCollection*>(basePtr);
 }
 
 const FDMItem& UAppDataStore::GetItem(const FString& itemId) const
 {
-    return GetCastedBase<FDMItem>(itemId);
+    FDMBase* basePtr = mBaseItems[itemId];
+    if(!basePtr)
+        return FDMItem::SInvalidItem;
+    return *static_cast<FDMItem*>(basePtr);
 }
 

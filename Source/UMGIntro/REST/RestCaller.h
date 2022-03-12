@@ -18,8 +18,11 @@ class UMGINTRO_API URestCaller : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 public:
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "REST")
     static void MakeRestCall(const FString& Url, ERequestVerbs RequestVerb, FOnCallComplete OnComplete);
+
+	UFUNCTION(BlueprintCallable, Category = "REST")
+	static void PrintResponse(const FString& response);
 
 private:
 

@@ -4,6 +4,8 @@
 #include "RestCaller.h"
 #include "EnumRequestVerbs.h"
 
+#define BOOL_TO_STRING(b) b ? TEXT("True") : TEXT("False")
+
 namespace
 {
 	const TMap<ERequestVerbs, FString> ERequestVerbNameMap =
@@ -34,15 +36,36 @@ void URestCaller::MakeRestCall(const FString& Url, ERequestVerbs RequestVerb, FO
 	request->ProcessRequest();
 }
 
-void URestCaller::OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful, FOnCallComplete OnComplete)
+void URestCaller::PrintResponse(const FString& response)
 {
-	FString responseContent;
-	UE_LOG(LogTemp, Warning, TEXT("OnResponseReceived"));
+	UE_LOG(LogTemp, Warning, TEXT("Printing Response %s"), *response);
+}
+
+void URestCaller::OnResponseReceived(
+	FHttpRequestPtr Request,
+	FHttpResponsePtr Response,
+	bool bWasSuccessful,
+	FOnCallComplete OnComplete)
+{
+	UE_LOG(LogTemp, Log, TEXT("OnResponseReceived"));
 	
-	if (bWasSuccessful)
+	FString responseContent;
+	if(!Response.IsValid())
+	{
+		responseContent = "Unable to process request.";
+		return;
+	}
+	
+	int responseCode = Response->GetResponseCode();
+	if (bWasSuccessful && EHttpResponseCodes::IsOk(responseCode))
 	{
 		responseContent = Response->GetContentAsString();
 	}
+	else
+	{
+		responseContent = FString::Printf(TEXT("Http Error occured code: %d"), responseCode);
+	}
 	
+	// ReSharper disable once CppExpressionWithoutSideEffects
 	OnComplete.ExecuteIfBound(responseContent);
 }

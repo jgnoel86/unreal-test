@@ -11,4 +11,8 @@ struct FDMItem : public FDMBase
 
 	UPROPERTY()
 	FString description;
+
+	static bool IsValid(const FDMItem& item);
+
+	static const FDMItem SInvalidItem;
 };
