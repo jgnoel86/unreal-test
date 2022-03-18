@@ -5,13 +5,13 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "../Data/Model/DMBase.h"
-#include "DMBaseView.generated.h"
+#include "DMBaseItemCardView.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class UMGINTRO_API UDMBaseView : public UUserWidget
+class UMGINTRO_API UDMBaseItemCardView : public UUserWidget
 {
 	GENERATED_BODY()
 public:
@@ -20,8 +20,14 @@ public:
 	void SetupImage(const FString& Url);
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void SetupTitle(const FString& title);
+	void SetupTitle(const FString& Title);
 	
 	UFUNCTION(BlueprintCallable)
-	void SetupAndDisplay(const FDMBase& baseItem);
+	void SetupData(const FDMBase& BaseItem);
+
+	UFUNCTION(BlueprintCallable)
+	const FString& GetItemId() const;
+
+private:
+	FString mItemId;
 };
