@@ -41,6 +41,19 @@ public:
 	 * @return The first item in the stack.
 	 */
 	UViewController* Bottom() const;
+
+	UFUNCTION(BlueprintCallable)
+	int Count() const;
+
+	UFUNCTION(BlueprintCallable)
+	bool IsEmpty() const;
+
+	UFUNCTION(BlueprintCallable)
+	int IndexOf(const UViewController* ViewController) const;
+	
+	UFUNCTION(BlueprintCallable)
+	bool IsRootOfStack(const UViewController* ViewController) const;
+	
 private:
 	UViewController* PeekAtTopOffset(int Offset) const;
 

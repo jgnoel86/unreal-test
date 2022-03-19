@@ -9,6 +9,6 @@ void UDetailView::SetupData(UPARAM(ref) const FDMItem& item)
         return;
     
     SetupTitle(item.name);
-    SetupTitle(item.image.url);
-    SetupTitle(item.description);
+    SetupImage(item.image.url);
+    SetupDescription(item.description);
 }

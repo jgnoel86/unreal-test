@@ -38,7 +38,7 @@ void UViewControllerStack::Pop()
 
 	if(oneBeforeTop && oneBeforeTop->IsValidLowLevel())
 	{
-		oneBeforeTop->SetReturningFlag(true);
+		oneBeforeTop->SetIsReturning(true);
 		oneBeforeTop->BeforeShow();
 		oneBeforeTop->Show(mOnShowComplete);
 	}
@@ -47,7 +47,7 @@ void UViewControllerStack::Pop()
 	
 	if(top && top->IsValidLowLevel())
 	{
-		top->SetReturningFlag(true);
+		top->SetIsReturning(true);
 		top->BeforeHide();
 		top->Hide(mOnHideComplete);
 	}
@@ -70,6 +70,34 @@ UViewController* UViewControllerStack::PeekBeforeTop() const
 UViewController* UViewControllerStack::Bottom() const
 {
 	return !mViewControllerStack.IsEmpty() ? mViewControllerStack[0] : nullptr;
+}
+
+int UViewControllerStack::Count() const
+{
+	return mViewControllerStack.Num();
+}
+
+bool UViewControllerStack::IsEmpty() const
+{
+	return mViewControllerStack.IsEmpty();
+}
+
+int UViewControllerStack::IndexOf(const UViewController* ViewController) const
+{
+	for(int i = 0; i < mViewControllerStack.Num(); i++)
+	{
+		if(mViewControllerStack[i] == ViewController)
+			return i;
+	}
+	return -1;
+}
+
+bool UViewControllerStack::IsRootOfStack(const UViewController* ViewController) const
+{
+	if(mViewControllerStack.IsEmpty())
+		return false;
+
+	return mViewControllerStack[0] == ViewController; 
 }
 
 UViewController* UViewControllerStack::PeekAtTopOffset(int Offset) const

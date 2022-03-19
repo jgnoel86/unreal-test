@@ -40,12 +40,7 @@ void UViewController::HideComplete()
 	mOnHideComplete.ExecuteIfBound(this);
 }
 
-void UViewController::SetReturningFlag(bool IsReturning)
+void UViewController::SetIsReturning(bool IsReturning)
 {
 	mIsReturning = IsReturning;
-}
-
-bool UViewController::IsReturning() const
-{
-	return mIsReturning;
 }

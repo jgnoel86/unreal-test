@@ -34,13 +34,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void HideComplete();
 
-	void SetReturningFlag(bool IsReturning);
+	void SetIsReturning(bool IsReturning);
 	
-	UFUNCTION(BlueprintCallable)
-	bool IsReturning() const;
-
-private:
+protected:
+	UPROPERTY(BlueprintReadOnly)
 	bool mIsReturning;
+	
 	FOnViewTransitionComplete mOnShowComplete;
 	FOnViewTransitionComplete mOnHideComplete;
 };
