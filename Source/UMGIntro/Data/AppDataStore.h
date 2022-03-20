@@ -18,18 +18,20 @@ public:
 	void SetupDataFromResponseString(FString response);
 
 	UFUNCTION(BlueprintCallable)
-	const FDMCollection& GetStartingCollection() const;
+	const UDMCollection* GetStartingCollection() const;
 
 	UFUNCTION(BlueprintCallable)
-	const FDMCollection& GetCollection(const FString& collectionId) const;
+	const UDMCollection* GetCollection(const FString& collectionId) const;
 	
 	UFUNCTION(BlueprintCallable)
-	const FDMItem& GetItem(const FString& itemId) const;
+	const UDMItem* GetItem(const FString& itemId) const;
 
-	const FDMBase* GetBasePointer(const FString& itemId) const;
+	const UDMBase* GetBasePointer(const FString& itemId) const;
 
 private:
-	FDMApp mAppData;
-	
-	TMap<FString, FDMBase*> mBaseItems;
+	UPROPERTY();
+	UDMApp* mAppData;
+
+	UPROPERTY();
+	TMap<FString, UDMBase*> mBaseItems;
 };

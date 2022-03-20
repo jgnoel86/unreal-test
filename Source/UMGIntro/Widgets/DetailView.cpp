@@ -3,12 +3,12 @@
 
 #include "DetailView.h"
 
-void UDetailView::SetupData(UPARAM(ref) const FDMItem& item)
+void UDetailView::SetupData(const UDMItem* Item)
 {
-    if(!FDMItem::IsValid(item))
+    if(!Item || !Item->IsValidLowLevelFast())
         return;
     
-    SetupTitle(item.name);
-    SetupImage(item.image.url);
-    SetupDescription(item.description);
+    SetupTitle(Item->mName);
+    SetupImage(Item->mImage->mUrl);
+    SetupDescription(Item->mDescription);
 }

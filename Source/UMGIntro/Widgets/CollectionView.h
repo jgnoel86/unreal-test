@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Blueprint/UserWidget.h"
 #include "../Data/AppDataStore.h"
 #include "../Data/Model/DMCollection.h"
 #include "ViewController/ViewController.h"
@@ -26,8 +25,8 @@ public:
 	virtual void AfterHide() override;
 	
 	UFUNCTION(BlueprintCallable)
-	void SetupData(UPARAM(ref) const FDMCollection& Collection, const UAppDataStore* DataStore);
+	void SetupData(const UDMCollection* Collection, const UAppDataStore* DataStore);
 	
 	UFUNCTION(BlueprintImplementableEvent)
-	void OnSetupElement(const FDMBase& BaseItem);
+	void OnSetupElement(const UDMBase* BaseItem);
 };

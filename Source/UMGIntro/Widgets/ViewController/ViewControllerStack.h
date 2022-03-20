@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "ViewController.h"
-#include "UObject/Object.h"
 #include "ViewControllerStack.generated.h"
 
 /**
@@ -14,7 +13,7 @@
  * try to go with an approach of potentially rebuilding the UI, as we go backwards.
  */
 UCLASS(BlueprintType)
-class UMGINTRO_API UViewControllerStack : public UDataAsset
+class UMGINTRO_API UViewControllerStack : public UObject
 {
 	GENERATED_BODY()
 public:

@@ -3,14 +3,18 @@
 
 #include "DMBaseItemCardView.h"
 
-void UDMBaseItemCardView::SetupData(UPARAM(ref) const FDMBase& BaseItem)
-{
-	SetupImage(BaseItem.image.url);
-	SetupTitle(BaseItem.name);
-	mItemId = BaseItem.id;
-}
+#include "UMGIntro/Data/Model/DMCollection.h"
 
-const FString& UDMBaseItemCardView::GetItemId() const
+void UDMBaseItemCardView::SetupData(const UDMBase* BaseItem)
 {
-	return mItemId;
+	mItemId = BaseItem->mId;
+	
+	if(BaseItem->IsA(UDMCollection::StaticClass()))
+	{
+		mIsCollection = true;
+		SetupCollection();
+	}
+	
+	SetupImage(BaseItem->mImage->mUrl);
+	SetupTitle(BaseItem->mName);
 }

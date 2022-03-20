@@ -4,8 +4,8 @@
 
 #include "DMBase.generated.h"
 
-USTRUCT(BlueprintType)
-struct FDMBase
+USTRUCT()
+struct FDMBaseRecord
 {
 	GENERATED_BODY()
 	
@@ -16,5 +16,22 @@ struct FDMBase
 	FString name;
 
 	UPROPERTY()
-	FDMUrlAsset image;
+	FDMUrlAssetRecord image;
+};
+
+UCLASS(BlueprintType)
+class UDMBase : public UObject
+{
+	GENERATED_BODY()
+public:
+	void Initialize(const FDMBaseRecord& record);
+	
+	UPROPERTY()
+	FString mId;
+
+	UPROPERTY()
+	FString mName;
+
+	UPROPERTY()
+	UDMUrlAsset* mImage;
 };

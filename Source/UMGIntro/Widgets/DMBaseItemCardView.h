@@ -22,12 +22,16 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void SetupTitle(const FString& Title);
 	
+	UFUNCTION(BlueprintImplementableEvent)
+	void SetupCollection();
+	
 	UFUNCTION(BlueprintCallable)
-	void SetupData(const FDMBase& BaseItem);
+	void SetupData(const UDMBase* BaseItem);
 
-	UFUNCTION(BlueprintCallable)
-	const FString& GetItemId() const;
+protected:
+	UPROPERTY(BlueprintReadOnly)
+	bool mIsCollection;
 
-private:
+	UPROPERTY(BlueprintReadOnly)
 	FString mItemId;
 };

@@ -13,48 +13,50 @@ void UAppDataStore::SetupDataFromResponseString(FString response)
         UE_LOG(LogTemp, Warning, TEXT("Data response is empty."));
         return;
     }
-    
-    FJsonObjectConverter::JsonObjectStringToUStruct(response, &mAppData, 0, 0);
-    
-    const int collectionCount = mAppData.collectionList.Num();
-    const int itemCount = mAppData.itemList.Num();
+
+    FDMAppRecord appData;
+    FJsonObjectConverter::JsonObjectStringToUStruct(response, &appData, 0, 0);
+
+    mAppData = NewObject<UDMApp>(this);
+    mAppData->Initialize(appData);
+
+    TArray<UDMCollection*>& collectionList = mAppData->mCollectionList;
+    TArray<UDMItem*>& itemList = mAppData->mItemList;
+    const int collectionCount = collectionList.Num();
+    const int itemCount = itemList.Num();
     const int totalCount = collectionCount + itemCount;
 
     mBaseItems.Reserve(totalCount);
-    for(FDMCollection& collection : mAppData.collectionList)
+    for(UDMCollection* collection : collectionList)
     {
-        mBaseItems.Add(collection.id, &collection);
+        mBaseItems.Add(collection->mId, collection);
     }
-    for(FDMItem& item : mAppData.itemList)
+    for(UDMItem* item : itemList)
     {
-        mBaseItems.Add(item.id, &item);
+        mBaseItems.Add(item->mId, item);
     }
 }
 
-const FDMBase* UAppDataStore::GetBasePointer(const FString& itemId) const
+const UDMBase* UAppDataStore::GetBasePointer(const FString& itemId) const
 {
     return mBaseItems[itemId];
 }
 
 
-const FDMCollection& UAppDataStore::GetStartingCollection() const
+const UDMCollection* UAppDataStore::GetStartingCollection() const
 {
-	return GetCollection(mAppData.startingCollection);
+	return GetCollection(mAppData->mStartingCollection);
 }
 
-const FDMCollection& UAppDataStore::GetCollection(const FString& collectionId) const
+const UDMCollection* UAppDataStore::GetCollection(const FString& collectionId) const
 {
-	FDMBase* basePtr = mBaseItems[collectionId];
-    if(!basePtr)
-        return FDMCollection::SInvalidCollection;
-    return *static_cast<FDMCollection*>(basePtr);
+	UDMBase* basePtr = mBaseItems[collectionId];
+    return Cast<UDMCollection>(basePtr);
 }
 
-const FDMItem& UAppDataStore::GetItem(const FString& itemId) const
+const UDMItem* UAppDataStore::GetItem(const FString& itemId) const
 {
-    FDMBase* basePtr = mBaseItems[itemId];
-    if(!basePtr)
-        return FDMItem::SInvalidItem;
-    return *static_cast<FDMItem*>(basePtr);
+    UDMBase* basePtr = mBaseItems[itemId];
+    return Cast<UDMItem>(basePtr);
 }
 

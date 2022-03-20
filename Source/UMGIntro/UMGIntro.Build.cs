@@ -8,7 +8,7 @@ public class UMGIntro : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HTTP", });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HTTP", "AssetTools" });
 		PrivateDependencyModuleNames.AddRange(new string[] {"Json", "JsonUtilities" });
 	}
 }

@@ -19,7 +19,7 @@ class UMGINTRO_API UDetailView : public UViewController
     GENERATED_BODY()
 public:
     UFUNCTION(BlueprintCallable)
-    void SetupData(const FDMItem& Item);
+    void SetupData(const UDMItem* Item);
 
     UFUNCTION(BlueprintImplementableEvent)
     void SetupTitle(const FString& Title);

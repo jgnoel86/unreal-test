@@ -5,15 +5,23 @@
 #include "DMCollection.generated.h"
 
 
-USTRUCT(BlueprintType)
-struct FDMCollection : public FDMBase
+USTRUCT()
+struct FDMCollectionRecord : public FDMBaseRecord
 {
 	GENERATED_BODY()
 
 	UPROPERTY()
 	TArray<FString> itemIds;
-	
-	static bool IsValid(const FDMCollection& Collection);
+};
 
-	static const FDMCollection SInvalidCollection;
+UCLASS(BlueprintType)
+class UDMCollection : public UDMBase
+{
+	GENERATED_BODY()
+	
+public: 
+	void Initialize(const FDMCollectionRecord& record);
+	
+	UPROPERTY()
+	TArray<FString> mItemIdList;
 };

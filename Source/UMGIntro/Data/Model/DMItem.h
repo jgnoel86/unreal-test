@@ -4,15 +4,23 @@
 
 #include "DMItem.generated.h"
 
-USTRUCT(BlueprintType)
-struct FDMItem : public FDMBase
+USTRUCT()
+struct FDMItemRecord : public FDMBaseRecord
 {
 	GENERATED_BODY()
 
 	UPROPERTY()
 	FString description;
+};
 
-	static bool IsValid(const FDMItem& item);
-
-	static const FDMItem SInvalidItem;
+UCLASS(BlueprintType)
+class UDMItem : public UDMBase
+{
+	GENERATED_BODY()
+	
+public:
+	void Initialize(const FDMItemRecord& record);
+	
+	UPROPERTY()
+	FString mDescription;
 };

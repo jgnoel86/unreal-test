@@ -1,8 +1,8 @@
 ﻿#include "DMItem.h"
 
-const FDMItem FDMItem::SInvalidItem = FDMItem();
-
-bool FDMItem::IsValid(const FDMItem& item)
+void UDMItem::Initialize(const FDMItemRecord& record)
 {
-    return &item != &SInvalidItem;
+    Super::Initialize(record);
+
+    mDescription = record.description;
 }

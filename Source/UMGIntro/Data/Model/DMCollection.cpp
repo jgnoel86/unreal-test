@@ -1,8 +1,9 @@
 ﻿#include "DMCollection.h"
 
-const FDMCollection FDMCollection::SInvalidCollection = FDMCollection();
-
-bool FDMCollection::IsValid(const FDMCollection& Collection)
+void UDMCollection::Initialize(const FDMCollectionRecord& record)
 {
-    return &Collection != &SInvalidCollection;
+    Super::Initialize(record);
+
+    for(const FString& string : record.itemIds)
+        mItemIdList.Add(string);
 }

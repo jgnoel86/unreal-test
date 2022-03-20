@@ -2,8 +2,8 @@
 
 #include "DMUrlAsset.generated.h"
 
-USTRUCT(BlueprintType)
-struct FDMUrlAsset
+USTRUCT()
+struct FDMUrlAssetRecord
 {
 	GENERATED_BODY()
 
@@ -12,4 +12,19 @@ struct FDMUrlAsset
 
 	UPROPERTY()
 	FString url;
+};
+
+UCLASS(BlueprintType)
+class UDMUrlAsset : public UObject
+{
+	GENERATED_BODY()
+	
+public:
+	void Initialize(const FDMUrlAssetRecord& record);
+
+	UPROPERTY()
+	FString mId;
+
+	UPROPERTY()
+	FString mUrl;
 };

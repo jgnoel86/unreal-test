@@ -34,24 +34,22 @@ void UCollectionView::AfterHide()
     UE_LOG(LogTemp, Warning, TEXT("CollectionView::AfterHide"));
 }
 
-void UCollectionView::SetupData(UPARAM(ref) const FDMCollection& Collection, const UAppDataStore* DataStore)
+void UCollectionView::SetupData(const UDMCollection* Collection, const UAppDataStore* DataStore)
 {
-    if(!FDMCollection::IsValid(Collection))
+    if(!Collection || !Collection->IsValidLowLevelFast())
         return;
     if(!DataStore || !DataStore->IsValidLowLevelFast())
         return;
 
-    UE_LOG(LogTemp, Warning, TEXT("Setting up data collection: Name: %s - Id: %s"), *Collection.name, *Collection.id);
+    UE_LOG(LogTemp, Warning, TEXT("Setting up data collection: Name: %s - Id: %s"), *Collection->mName, *Collection->mId);
     
-    const int itemCount = Collection.itemIds.Num();
+    const int itemCount = Collection->mItemIdList.Num();
     for(int i = 0; i < itemCount; i++)
     {
-        const FDMBase* basePtr = DataStore->GetBasePointer(Collection.itemIds[i]);
+        const UDMBase* basePtr = DataStore->GetBasePointer(Collection->mItemIdList[i]);
         if(!basePtr)
             continue;
         
-        UE_LOG(LogTemp, Warning, TEXT("Setting up item: name: %s - Id: %s"), *basePtr->name, *basePtr->id);
-        
-        OnSetupElement(*basePtr);
+        OnSetupElement(basePtr);
     }
 }
