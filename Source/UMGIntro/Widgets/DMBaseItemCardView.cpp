@@ -7,7 +7,7 @@
 
 void UDMBaseItemCardView::SetupData(const UDMBase* BaseItem)
 {
-	mItemId = BaseItem->mId;
+	mBaseItem = BaseItem;
 	
 	if(BaseItem->IsA(UDMCollection::StaticClass()))
 	{

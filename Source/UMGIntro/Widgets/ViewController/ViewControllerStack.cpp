@@ -10,13 +10,14 @@ UViewControllerStack::UViewControllerStack()
 	
 	mOnHideComplete =
 		FOnViewTransitionComplete::CreateUObject(this, &UViewControllerStack::OnHideComplete);
+
+	// Honestly probably only 1 item at a time will really be hiding, but just in case.
+	mViewsHiding.Reserve(5);
 }
 
 void UViewControllerStack::Push(UViewController* ViewController)
 {
-	UViewController* top = Peek();
-	
-	if(top && top->IsValidLowLevel())
+	if(UViewController* top = Peek())
 	{
 		top->BeforeHide();
 		top->Hide(mOnHideComplete);
@@ -33,24 +34,26 @@ void UViewControllerStack::Pop()
 	if(mViewControllerStack.IsEmpty())
 		return;
 	
-	UViewController* top = Peek();
-	UViewController* oneBeforeTop = PeekBeforeTop();
-
-	if(oneBeforeTop && oneBeforeTop->IsValidLowLevel())
+	if(UViewController* oneBeforeTop = PeekBeforeTop())
 	{
+		UE_LOG(LogTemp, Warning, TEXT("ViewControllerStack::One before top valid: Showing. Stack size %d"), mViewControllerStack.Num());
 		oneBeforeTop->SetIsReturning(true);
 		oneBeforeTop->BeforeShow();
 		oneBeforeTop->Show(mOnShowComplete);
 	}
 
-	mViewControllerStack.RemoveAt(mViewControllerStack.Num() - 1);
-	
-	if(top && top->IsValidLowLevel())
+	if(UViewController* top = Peek())
 	{
+		UE_LOG(LogTemp, Warning, TEXT("ViewControllerStack::Top Valid: Hiding. Stack size %d"), mViewControllerStack.Num());
 		top->SetIsReturning(true);
 		top->BeforeHide();
 		top->Hide(mOnHideComplete);
+		mViewsHiding.Add(top);
 	}
+	
+	UE_LOG(LogTemp, Warning, TEXT("ViewControllerStack::Before Pop: View controller stack size %d"), mViewControllerStack.Num());
+	PopBack();
+	UE_LOG(LogTemp, Warning, TEXT("ViewControllerStack::After Pop: View controller stack size %d"), mViewControllerStack.Num());
 }
 
 void UViewControllerStack::Clear()
@@ -103,24 +106,34 @@ bool UViewControllerStack::IsRootOfStack(const UViewController* ViewController) 
 UViewController* UViewControllerStack::PeekAtTopOffset(int Offset) const
 {
 	const int count = mViewControllerStack.Num();
-	return count > Offset ? mViewControllerStack[count - Offset - 1] : nullptr;
+	return count > Offset ? mViewControllerStack[count - (Offset + 1)] : nullptr;
 }
-
+void UViewControllerStack::PopBack()
+{
+	mViewControllerStack.RemoveAt(mViewControllerStack.Num() - 1, 1, false);
+}
 void UViewControllerStack::PushInternal(UViewController* ViewController)
 {
 	mViewControllerStack.Add(ViewController);
-	UE_LOG(LogTemp, Warning, TEXT("View controller stack size %d"), mViewControllerStack.Num());
+	UE_LOG(LogTemp, Warning, TEXT("Pushing: View controller stack size %d"), mViewControllerStack.Num());
 }
 
 
 void UViewControllerStack::OnShowComplete(UViewController* ViewController)
 {
-	if(ViewController && ViewController->IsValidLowLevelFast())
+	if(ViewController)
+	{
 		ViewController->AfterShow();
+		ViewController->SetIsReturning(false);
+	}
 }
 
 void UViewControllerStack::OnHideComplete(UViewController* ViewController)
 {
-	if(ViewController && ViewController->IsValidLowLevelFast())
+	if(ViewController)
+	{
 		ViewController->AfterHide();
+		ViewController->SetIsReturning(false);
+		mViewsHiding.Remove(ViewController);
+	}
 }

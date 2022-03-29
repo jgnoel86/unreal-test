@@ -28,6 +28,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Clear();
 
+	/**
+	 * @brief Get the item on the top of the stack.
+	 * @return Returns the top element on the stack, if there is anything in
+	 * the stack, otherwise will return null.
+	 */
 	UViewController* Peek() const; 
 	/**
 	 * @brief Sometimes we need the item under the top of the stack, this is that.
@@ -41,21 +46,44 @@ public:
 	 */
 	UViewController* Bottom() const;
 
+	
+	/**
+	 * @brief Number of ViewControllers in the stack
+	 * @return Number of elements in the stack
+	 */
 	UFUNCTION(BlueprintCallable)
 	int Count() const;
 
+	/**
+	 * @brief If the stack is empty or not
+	 * @return true if the stack has more than 0 elements in it, otherwise false
+	 */
 	UFUNCTION(BlueprintCallable)
 	bool IsEmpty() const;
 
+	/**
+	 * @brief Given a ViewController pointer determines if that specific ViewController
+	 * is somewhere in the stack. This is an O(n) operation.
+	 * @param ViewController Pointer to search the stack for.
+	 * @return If found will return the index the ViewController resides at, if not found will return -1.
+	 */
 	UFUNCTION(BlueprintCallable)
 	int IndexOf(const UViewController* ViewController) const;
+
 	
+	/**
+	 * @brief Determines if the provided ViewController pointed is at the bottom (or root) of the stack.
+	 * @param ViewController Pointer used to check the stack root.
+	 * @return True if the ViewController pointer is the bottom of the stack, otherwise false.
+	 * Will also be false if the stack is empty.
+	 */
 	UFUNCTION(BlueprintCallable)
 	bool IsRootOfStack(const UViewController* ViewController) const;
 	
 private:
 	UViewController* PeekAtTopOffset(int Offset) const;
 
+	void PopBack();
 	void PushInternal(UViewController* ViewController);
 
 	void OnShowComplete(UViewController* ViewController);
@@ -66,7 +94,11 @@ private:
 	 * will generally behave like a stack, sometimes we need the functionality of
 	 * a pure array.
 	 */
+	UPROPERTY()
 	TArray<UViewController*> mViewControllerStack;
+
+	UPROPERTY()
+	TArray<UViewController*> mViewsHiding;
 
 	FOnViewTransitionComplete mOnShowComplete;
 	FOnViewTransitionComplete mOnHideComplete;

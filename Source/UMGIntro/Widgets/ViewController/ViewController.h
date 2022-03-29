@@ -10,6 +10,7 @@
  * 
  */
 DECLARE_DELEGATE_OneParam(FOnViewTransitionComplete, class UViewController*);
+DECLARE_DYNAMIC_DELEGATE(FOnViewAnimationComplete);
 
 UCLASS()
 class UMGINTRO_API UViewController : public UUserWidget

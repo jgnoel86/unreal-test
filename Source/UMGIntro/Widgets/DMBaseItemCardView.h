@@ -33,5 +33,5 @@ protected:
 	bool mIsCollection;
 
 	UPROPERTY(BlueprintReadOnly)
-	FString mItemId;
+	const UDMBase* mBaseItem;
 };
