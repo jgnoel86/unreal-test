@@ -1,8 +1,16 @@
-﻿#include "DMItem.h"
+﻿/**
+ * @author Justin Noel
+ * @file   DMItem.cpp
+ */
+#include "DMItem.h"
 
-void UDMItem::Initialize(const FDMItemRecord& record)
+/**
+ * @brief Invoked to setup the unreal instance of the deserialized object.
+ * @param Record Deserialized struct to convert into unreal object.
+ */
+void UDMItem::Initialize(const FDMItemRecord& Record)
 {
-    Super::Initialize(record);
+    Super::Initialize(Record);
 
-    mDescription = record.description;
+    mDescription = Record.description;
 }

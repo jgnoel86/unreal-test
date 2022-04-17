@@ -1,11 +1,20 @@
-﻿#include "DMBase.h"
+﻿/**
+ * @author Justin Noel
+ * @file   DMBase.cpp
+ */
+
+#include "DMBase.h"
 #include "DMUrlAsset.h"
 
-void UDMBase::Initialize(const FDMBaseRecord& record)
+/**
+ * @brief Invoked to setup the unreal instance of the deserialized object.
+ * @param Record Base object record to initialize the base Unreal object from.
+ */
+void UDMBase::Initialize(const FDMBaseRecord& Record)
 {
-    mId = record.id;
-    mName = record.name;
+    mId = Record.id;
+    mName = Record.name;
     
     mImage = NewObject<UDMUrlAsset>(this);
-    mImage->Initialize(record.image);
+    mImage->Initialize(Record.image);
 }

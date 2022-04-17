@@ -1,7 +1,16 @@
-﻿#include "DMUrlAsset.h"
+﻿/**
+ * @author Justin Noel
+ * @file   DMUrlAsset.cpp
+ */
 
-void UDMUrlAsset::Initialize(const FDMUrlAssetRecord& record)
+#include "DMUrlAsset.h"
+
+/**
+ * @brief Invoked to setup the unreal instance of the deserialized object.
+ * @param Record Deserialized struct to convert into unreal object.
+ */
+void UDMUrlAsset::Initialize(const FDMUrlAssetRecord& Record)
 {
-    mId = record.id;
-    mUrl = record.url;
+    mId = Record.id;
+    mUrl = Record.url;
 }

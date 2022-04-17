@@ -1,47 +1,22 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
+/**
+ * @author Justin Noel
+ * @file   CollectionView.cpp
+ */
 
 #include "CollectionView.h"
-#include "../Data/Model/DMCollection.h"
 
-void UCollectionView::BeforeShow()
-{
-    UE_LOG(LogTemp, Warning, TEXT("CollectionView::BeforeShow"));
-}
-
-void UCollectionView::Show(FOnViewTransitionComplete OnComplete)
-{
-    Super::Show(OnComplete);
-}
-
-void UCollectionView::AfterShow()
-{
-    UE_LOG(LogTemp, Warning, TEXT("CollectionView::AfterShow"));
-}
-
-void UCollectionView::BeforeHide()
-{
-    UE_LOG(LogTemp, Warning, TEXT("CollectionView::BeforeHide"));
-}
-
-void UCollectionView::Hide(FOnViewTransitionComplete OnComplete)
-{
-    Super::Hide(OnComplete);
-}
-
-void UCollectionView::AfterHide()
-{
-    UE_LOG(LogTemp, Warning, TEXT("CollectionView::AfterHide"));
-}
-
+/**
+ * @brief Expected to be invoked by a blueprint with the specific collection that should be displayed
+ *        as well as the AppDataStore so the individual elements can be setup.
+ * @param Collection Collection that this view should display.
+ * @param DataStore AppDataStore to get more information for the individual items.
+ */
 void UCollectionView::SetupData(const UDMCollection* Collection, const UAppDataStore* DataStore)
 {
     if(!Collection || !Collection->IsValidLowLevelFast())
         return;
     if(!DataStore || !DataStore->IsValidLowLevelFast())
         return;
-
-    UE_LOG(LogTemp, Warning, TEXT("Setting up data collection: Name: %s - Id: %s"), *Collection->mName, *Collection->mId);
     
     const int itemCount = Collection->mItemIdList.Num();
     for(int i = 0; i < itemCount; i++)

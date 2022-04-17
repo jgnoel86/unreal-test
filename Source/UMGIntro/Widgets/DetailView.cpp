@@ -1,8 +1,14 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
-
+﻿/**
+ * @author Justin Noel
+ * @file   DetailView.cpp
+ */
 
 #include "DetailView.h"
 
+/**
+ * @brief Called by a blueprint to set the specific item that detailed information should be shown for.
+ * @param Item Item that will be used to setup this detail view.
+ */
 void UDetailView::SetupData(const UDMItem* Item)
 {
     if(!Item || !Item->IsValidLowLevelFast())

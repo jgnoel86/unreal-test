@@ -1,9 +1,10 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
-
+﻿/**
+ * @author Justin Noel
+ * @file   DMBaseItemCardView.cpp
+ */
 
 #include "DMBaseItemCardView.h"
-
-#include "UMGIntro/Data/Model/DMCollection.h"
+#include "../Data/Model/DMCollection.h"
 
 void UDMBaseItemCardView::SetupData(const UDMBase* BaseItem)
 {

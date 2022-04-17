@@ -230,9 +230,10 @@
     },
     {
       "id": "747d7c07-3434-41e4-9e3c-892cd4fa4667",
-      "name": "Tweedy's Pussypaws",
+      "name": "Tweedy's Puspaws",
       "itemIds": [
-        "44931a70-1848-434c-b527-d43e927409a1"
+        "02844e5b-10e4-4dfd-bd83-b7e836e93ac6",
+        "86d52f45-90dd-478d-953d-9f639f04e7bb"
       ],
       "image": {
         "id": "1dd815a3-66ee-4a79-acef-27eeba877e5d",
